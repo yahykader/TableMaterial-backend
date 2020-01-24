@@ -1,0 +1,21 @@
+table {
+    width: 90%;
+}
+.hide{
+    display: none;
+}
+mat-footer-row mat-footer-cell{
+    justify-content: center;
+    font-style: italic;
+}
+.search-div{
+    margin: 10px;
+}
+.search-from-field {
+    width: 80%;
+    margin-left: 5px;
+    padding: 5px -10px;
+
+    border-radius: 2px;
+}
+
