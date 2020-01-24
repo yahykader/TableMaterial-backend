@@ -1,3 +1,5 @@
+import { Departement } from './departement.model';
+
 export interface Employe{
     id :number;
 	firstName :string;
@@ -5,4 +7,9 @@ export interface Employe{
 	email :string;
 	mobile :number;
 	age :number;
+	city:string,
+    gender :number,
+    hireDate :Date,
+    isPermanent :boolean,
+    departement :Departement
 }

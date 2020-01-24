@@ -1,15 +1,13 @@
 package org.kader.employes.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.web.bind.annotation.RestController;
+import javax.persistence.ManyToOne;
 
 import lombok.*;
 
@@ -24,5 +22,11 @@ public class Employe implements Serializable{
 	private String email;
 	private Long mobile;
 	private int age;
+	private String city;
+	private int gender;
+	private Date hireDate;
+	private boolean isPermanent;
+	@ManyToOne
+	private Departement departement;
 }
 

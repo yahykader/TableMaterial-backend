@@ -6,11 +6,18 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule,MatFormFieldControl} from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 const Materilacomponets=[
-  MatButtonModule,MatTableModule,MatToolbarModule,MatIconModule,
-  MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule
+  MatButtonModule,MatTableModule,MatToolbarModule,MatIconModule,MatDialogModule,
+  MatGridListModule,MatDatepickerModule,MatCheckboxModule,MatNativeDateModule,
+  MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatSelectModule
 ];
 @NgModule({
   
