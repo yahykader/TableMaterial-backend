@@ -4,6 +4,8 @@ import {MatTableDataSource, MatSort, MatPaginator,MatDialog,MatDialogConfig} fro
 import { Employe } from 'src/app/model/employe.model';
 import { from } from 'rxjs';
 import { EmployeComponent } from '../employe/employe.component';
+import { NotificationService } from 'src/app/service/notification.service';
+import { DialogConfirmService } from 'src/app/service/dialog-confirm.service';
 
 @Component({
   selector: 'app-employees-list',
@@ -12,25 +14,35 @@ import { EmployeComponent } from '../employe/employe.component';
 })
 export class EmployeesListComponent implements OnInit {
   listEmployes:Employe [];
+  array = [];
   searchkey:string;  
 
   listData : MatTableDataSource<any>;
-  displayedColumns: string[] = ['id','firstName', 'lastName', 'departement','email', 'age','actions'];
+  displayedColumns: string[] = ['id','firstName', 'lastName','departement','email', 'age','actions'];
   @ViewChild(MatSort) sort:MatSort;
   @ViewChild(MatPaginator) paginator:MatPaginator;
 
-  constructor(public employeService: EmployeService,public dialog: MatDialog) { }
+  constructor(public employeService: EmployeService,public dialog: MatDialog,
+              public notificationService: NotificationService,private confirmService:DialogConfirmService) { }
 
   ngOnInit() {
-    this.getEmployes();
+    this.getListEmployes();
   }
-  public getEmployes(){
+  
+  public getListEmployes(){
     this.employeService.getEmployes()
-      .subscribe(list => {
+      .subscribe(
+        list => {
           this.listEmployes= list;
+         // this.employeeList.snapshotChanges();
+         // let array=list.map(item=>{
+           /* return {
+              $id: item.id,
+              //departmentName,
+               ...item.;
+            };
+          });*/
           console.log(this.listEmployes);
-
-
           this.listData=new MatTableDataSource(this.listEmployes);
           this.listData.sort=this.sort;
           this.listData.paginator=this.paginator;
@@ -52,6 +64,7 @@ export class EmployeesListComponent implements OnInit {
       console.log(err);
     });
   }
+  
 
   onSearchClear(){
     this.searchkey="";
@@ -62,6 +75,9 @@ export class EmployeesListComponent implements OnInit {
   }
   onCreate(){
     this.employeService.initializeFromGroup();
+    this.showDialog();
+  }
+  showDialog(){
     const dialogConfig = new MatDialogConfig; 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -69,5 +85,47 @@ export class EmployeesListComponent implements OnInit {
     this.dialog.open(EmployeComponent,dialogConfig);
   }
 
+
+  public onDeleteEmploye(id){
+    this.confirmService.openConfirmDialog('Are you sure to delete this record ?')
+    .afterClosed().subscribe(res =>{
+      if(res){
+        this.employeService.onDeleteEmploye(id)
+      .subscribe(data => {
+        console.log(data);
+        this.notificationService.warn('! Deleted successfully');
+        this.getListEmployes();
+      }, err => {
+        console.log(err);
+      });
+      }
+    });
+    /*
+    let c = confirm("Etes vous sure de vouloir supprimez");
+    if (!c) return;
+    this.employeService.onDeleteEmploye(id)
+      .subscribe(data => {
+        console.log(data);
+        this.notificationService.warn('! Deleted successfully');
+        this.getListEmployes();
+      }, err => {
+        console.log(err);
+      });*/
+  }
+  currentEmploye;
+  
+  public  onEditEmploye(id){
+  // this.employeService.populateForm(row);
+   //this.showDialog();
+    this.employeService.getEmploye(id).subscribe(data=>{
+      this.currentEmploye=id;  
+      console.log(this.currentEmploye);    
+      this.showDialog();
+    },err=>{
+      console.log(err);
+    });
+
+
+  }
 
 }

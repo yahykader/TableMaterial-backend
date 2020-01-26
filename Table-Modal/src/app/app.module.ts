@@ -8,12 +8,14 @@ import { EmployeesListComponent } from './employees/employes-list/employees-list
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeComponent } from './employees/employe/employe.component';
+import { MatConfirmDialogComponent } from './employees/mat-confirm-dialog/mat-confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesListComponent,
-    EmployeComponent
+    EmployeComponent,
+    MatConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,6 @@ import { EmployeComponent } from './employees/employe/employe.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [EmployeComponent]
+  entryComponents: [EmployeComponent,MatConfirmDialogComponent]
 })
 export class AppModule { }

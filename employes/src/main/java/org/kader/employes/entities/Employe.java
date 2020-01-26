@@ -25,7 +25,7 @@ public class Employe implements Serializable{
 	private String city;
 	private int gender;
 	private Date hireDate;
-	private boolean isPermanent;
+	//private boolean isPermanent;
 	@ManyToOne
 	private Departement departement;
 }

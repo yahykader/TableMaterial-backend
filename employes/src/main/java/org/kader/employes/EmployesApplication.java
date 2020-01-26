@@ -13,8 +13,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import lombok.experimental.Delegate;
 
 
 @SpringBootApplication
@@ -84,10 +91,31 @@ class EmployerController {
 		
 		return employeesRepository.findAll();
 	}
+	@GetMapping(value="/employee/{id}")
+	public Employe getEmployee(@PathVariable(name="id")Long id) {
+		return employeesRepository.findById(id).get();
+	}
 	@GetMapping(value="/departements")
 	public List<Departement>getAlldepartements() {
 		
 		return departementRepository.findAll();
 	}
 	
+	@PostMapping(value="/addEmploye")
+	public Employe addEmploye(@RequestBody Employe employe) {	
+	    return	employeesRepository.save(employe);
+	}
+	
+	@DeleteMapping(value="/deleteEmploye/{id}")
+	public void deleteEmploye(@PathVariable("id") Long id) {	
+	     	employeesRepository.deleteById(id);
+	}
+	@PutMapping("/updateEmploye/{id}")
+	public Employe update(@PathVariable(name="id")Long id,@RequestBody Employe employe){
+		employe.setId(id);
+		return employeesRepository.save(employe);
+		
+	}
+	
+		
 }

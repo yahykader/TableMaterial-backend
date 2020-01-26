@@ -14,8 +14,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule,MatFormFieldControl} from '@angular/material';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 const Materilacomponets=[
-  MatButtonModule,MatTableModule,MatToolbarModule,MatIconModule,MatDialogModule,
+  MatButtonModule,MatTableModule,MatToolbarModule,MatIconModule,MatDialogModule,MatSnackBarModule,
   MatGridListModule,MatDatepickerModule,MatCheckboxModule,MatNativeDateModule,
   MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatRadioModule,MatSelectModule
 ];

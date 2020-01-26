@@ -1,4 +1,10 @@
-<form [formGroup]="employeService.employeForm" class="normal-form">
+<mat-toolbar>
+  <span>{{employeService.employeForm.controls['id'].value?"Modify Employee":"New Employee"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+<form [formGroup]="employeService.employeForm" 
+      (ngSubmit)="onAddEmploye(employeService.employeForm.value)" class="normal-form">
   <mat-grid-list cols="2" rowHeight="400px">
     <mat-grid-tile>
       <div class="controles-container">
@@ -40,16 +46,17 @@
             <mat-radio-button value="3">Other</mat-radio-button>
         </mat-radio-group>
         </div>
-        <mat-form-field >
-          <mat-select  *ngIf="listDepartments" formControlName="departement" placeholder="Departement" >
+        
+       <mat-form-field >
+          <mat-select  formControlName="departement" placeholder="Departement" >
             <mat-option>None</mat-option>
-            <ng-container *ngFor="let departement of listDepartments">
-              <mat-option  [value]="departement.value">
-                         {{departement.nameDepartemnt}}
+            <ng-container *ngFor="let departement of employeService.listDepartments">
+              <mat-option  value="{{departement.value}}">
+                               {{departement.nameDepartemnt}}
               </mat-option>
             </ng-container>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> 
         <mat-form-field>
           <input matInput formControlName="hireDate" matInput [matDatepicker]="picker" placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -59,7 +66,7 @@
           <mat-checkbox formControlName="isPermanent">Permanent Employe</mat-checkbox>
         </div>
         <div class="button-row">
-          <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="employeService.employeForm.invalid">Submit</button>
+          <button mat-raised-button color="primary" type="submit"  [disabled]="employeService.employeForm.invalid">Submit</button>
           <button mat-raised-button color="warn" (click)="onClear()">Clear</button>
         </div>
       </div>
